@@ -1,0 +1,41 @@
+#cke-panel {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.5);
+    color: white;
+}
+#cke-panel .btn-cke {
+    border-radius: .25rem;
+    padding: 5px 10px;
+    line-height: 1.4;
+    display: inline-block;
+    cursor: pointer;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.btn-cke-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+#cke-panel .btn-cke.disabled {
+    opacity: .5;
+    color: whitesmoke;
+    cursor: default;
+}
+
+.editable-block {
+    position: relative;
+}
+.editable-block:hover {
+    outline: dashed #5d5d5d 1px !important;
+}
+.editable-block::before,
+.editable-block::after {
+    content: " ";
+    display: table;
+}
+.contextual-links::after {
+    clear: both;
+}
