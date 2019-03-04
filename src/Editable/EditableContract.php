@@ -15,6 +15,4 @@ interface EditableContract
     public function getEditableUrlVisualUpdate(): string;
 
     public function getEditableUrlDashboardEdit(): string;
-
-    public function isEditableNow(): bool;
 }

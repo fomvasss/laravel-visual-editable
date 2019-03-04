@@ -52,12 +52,19 @@ abstract class VisualEditor
         return $this;
     }
 
+    /**
+     * @param string $content
+     * @param array $attrs
+     * @return string
+     */
     protected function getEditableResult(string $content, array $attrs = [])
     {
         // TODO
-        $res = "<div class='editable-block";
+        $res = "<div class='editable-block'";
         foreach ($attrs as $key => $attr) {
-            $res .= " $key=$attr";
+            if (!empty($attr)) {
+                $res .= " $key='$attr'";
+            }
         }
         $res .= ">{$content}</div>";
 
@@ -67,7 +74,7 @@ abstract class VisualEditor
         if (!empty($attrs['data-url-visual-store'])) {
             $res .= "&nbsp;<div class='editable-store-btn' style='position: absolute;top: 50%;right: 50%'><a href='{$attrs['data-url-visual-store']}'>&#10050;</a></div>&nbsp;";
         }
-        if ($attrs['data-url-dashboard-edit']) {
+        if (!empty($attrs['data-url-dashboard-edit'])) {
             $res .= "&nbsp;<div class='editable-edit-btn' style='position: absolute;top: 50%;right: 50%'><a href='{$attrs['data-url-dashboard-edit']}' target='_blank'>&#10050;</a></div>&nbsp;";
         }
 

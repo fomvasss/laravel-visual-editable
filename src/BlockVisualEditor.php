@@ -9,6 +9,7 @@
 namespace Fomvasss\LaravelVisualEditable;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class BlockVisualEditor extends VisualEditor
 {
@@ -31,25 +32,27 @@ class BlockVisualEditor extends VisualEditor
      */
     public function render(string $alias, string $defaultBody = ''): string
     {
-        $model = $this->getModelBlock($alias, $this->locale);
-        $content = $model->body ?: $defaultBody;
+        $block = $this->getModelBlock($alias, $this->locale);
+        $body = $block->body ?: $defaultBody;
 
-        if ($blade = $this->getBladeFullPath($model, $alias, $this->blade)) {
-            $content = view($blade, ['block' => $model, 'content' => $content])->render();
+        if ($blade = $this->getBladeFullPath($block, $alias, $this->blade)) {
+            $body = view($blade, ['block' => $block, 'body' => $body])->render();
         }
 
-        if ($model->isEditableNow()) {
-            return $this->getEditableResult($content, [
-                'data-key' => $model->getKey(),
+        if ($this->config->get('visual-editable.available')) {
+            return $this->getEditableResult($body, [
+                'data-alias' => $alias,
+                'data-locale' => $this->locale,
+                'data-key' => $block->getKey(),
                 'data-field' => 'body',
-                'data-url-dashboard-edit' => $model->getEditableUrlDashboardEdit(),
-                'data-url-visual-update' => $model->getEditableUrlVisualUpdate(),
-                'data-url-visual-store' => $model->getEditableUrlVisualStore(),
+                'data-url-dashboard-edit' => $block->getEditableUrlDashboardEdit(),
+                'data-url-visual-update' => $block->getEditableUrlVisualUpdate(),
+                'data-url-visual-store' => $block->getEditableUrlVisualStore(),
                 'contenteditable' => 'true',
             ]);
         }
 
-        return \StrToken::setText($content)->setEntity($model)->replace();
+        return \StrToken::setText($body)->setEntity($block)->replace();
     }
 
     /**
@@ -84,7 +87,6 @@ class BlockVisualEditor extends VisualEditor
         if ($blockModel->blade && view()->exists($blockModel->blade)) {
             return $blockModel->blade;
         }
-
         $bladePath = trim($this->config->get('visual-editable.blocks.blade_dir'), '.') . '.' . $alias;
         if (view()->exists($bladePath)) {
             return $bladePath;
@@ -98,8 +100,10 @@ class BlockVisualEditor extends VisualEditor
      */
     protected function getModelBlock($alias, $locale)
     {
-        $modelClass = $this->config->get('visual-editable.blocks.model');
-
-        return $modelClass::smartFirstOrNew($alias, $locale);
+        // TODO
+        return Cache::remember("get-model-block-$alias-$locale", 0, function () use ($alias, $locale) {
+            $modelClass = $this->config->get('visual-editable.blocks.model');
+            return $modelClass::smartFirstOrNew($alias, $locale);
+        });
     }
 }

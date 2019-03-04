@@ -22,7 +22,7 @@ class ModelVisualEditor extends VisualEditor
     {
         $content = $model->{$field} ?? $defaultContent;
 
-        if ($model->isEditableNow()) {
+        if ($this->config->get('visual-editable.available')) {
             return $this->getEditableResult($content, [
                 'data-key' => $model->getKey(),
                 'data-field' => $field,

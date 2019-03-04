@@ -51,8 +51,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if (! class_exists('CreateBlocksTable')) {
             $timestamp = date('Y_m_d_His', time());
 
-            $migrationPath = __DIR__.'/../database/migrations/create_blocks_table.php.stub';
-            $this->publishes([$migrationPath => database_path('/migrations/'.$timestamp.'_create_blocks_table.php'),
+            $migrationPath = __DIR__.'/../database/migrations/create_visual_blocks_table.php.stub';
+            $this->publishes([$migrationPath => database_path('/migrations/'.$timestamp.'_create_visual_blocks_table.php'),
                 ], 'visual-editable-migrations');
         }
     }

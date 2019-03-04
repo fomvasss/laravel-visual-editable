@@ -1,9 +1,12 @@
 <?php
 
 return [
+
+    'available' => true,
+
     'blocks' => [
 
-    'model' => \Fomvasss\LaravelVisualEditable\Models\Block::class,
+    'model' => \App\Models\Block::class,
 
     'table_name' => 'blocks',
 
