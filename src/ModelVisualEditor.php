@@ -27,8 +27,8 @@ class ModelVisualEditor extends VisualEditor
                 'data-key' => $model->getKey(),
                 'data-field' => $field,
                 'data-url-dashboard-edit' => $model->getEditableUrlDashboardEdit(),
-                'data-url-visual-update' => $model->getEditableUrlVisualUpdate(),
-                'data-url-visual-store' => $model->getEditableUrlVisualStore(),
+                'data-url-editable-update' => $model->getEditableUrlVisualUpdate(),
+                'data-url-editable-store' => $model->getEditableUrlVisualStore(),
                 'contenteditable' => 'true',
             ]);
         }

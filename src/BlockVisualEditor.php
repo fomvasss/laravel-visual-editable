@@ -46,8 +46,8 @@ class BlockVisualEditor extends VisualEditor
                 'data-key' => $block->getKey(),
                 'data-field' => 'body',
                 'data-url-dashboard-edit' => $block->getEditableUrlDashboardEdit(),
-                'data-url-visual-update' => $block->getEditableUrlVisualUpdate(),
-                'data-url-visual-store' => $block->getEditableUrlVisualStore(),
+                'data-url-editable-update' => $block->getEditableUrlVisualUpdate(),
+                'data-url-editable-store' => $block->getEditableUrlVisualStore(),
                 'contenteditable' => 'true',
             ]);
         }

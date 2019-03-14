@@ -59,7 +59,6 @@ abstract class VisualEditor
      */
     protected function getEditableResult(string $content, array $attrs = [])
     {
-        // TODO
         $res = "<div class='editable-block'";
         foreach ($attrs as $key => $attr) {
             if (!empty($attr)) {
@@ -68,14 +67,16 @@ abstract class VisualEditor
         }
         $res .= ">{$content}</div>";
 
-        if (!empty($attrs['data-url-visual-update'])) {
-            $res .= "&nbsp;<div class='editable-update-btn' style='position: absolute;top: 50%;right: 50%'><a href='{$attrs['data-url-visual-update']}'>&#10050;</a></div>&nbsp;";
+        if (!empty($attrs['data-url-editable-store'])) {
+            $res .= "&nbsp;<div class='editable-btn editable-store-btn'><a href='{$attrs['data-url-editable-store']}' data-method='POST'>&#10084;</a></div>";
         }
-        if (!empty($attrs['data-url-visual-store'])) {
-            $res .= "&nbsp;<div class='editable-store-btn' style='position: absolute;top: 50%;right: 50%'><a href='{$attrs['data-url-visual-store']}'>&#10050;</a></div>&nbsp;";
+
+        if (!empty($attrs['data-url-editable-update'])) {
+            $res .= "&nbsp;<div class='editable-btn editable-update-btn'><a href='{$attrs['data-url-editable-update']}' data-method='PATCH'>&#10048;</a></div>";
         }
+
         if (!empty($attrs['data-url-dashboard-edit'])) {
-            $res .= "&nbsp;<div class='editable-edit-btn' style='position: absolute;top: 50%;right: 50%'><a href='{$attrs['data-url-dashboard-edit']}' target='_blank'>&#10050;</a></div>&nbsp;";
+            $res .= "&nbsp;<div class='editable-btn editable-edit-btn'><a href='{$attrs['data-url-dashboard-edit']}' target='_blank'>&#9998;</a></div>";
         }
 
         return $res;
