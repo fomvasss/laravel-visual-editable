@@ -5,7 +5,7 @@
 Run from the command line:
 
 ```bash
-composer require fomvasss/laravel-visual-editor
+composer require fomvasss/laravel-visual-editable
 ```
 - Install CKEditor & Laravel file manager
 
